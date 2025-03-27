@@ -1,7 +1,5 @@
 // src/pages/Home.jsx
 import React from 'react';
-import Header from '../components/Header';
-import FooterNav from '../components/FooterNav';
 import GoalBlock from '../components/GoalBlock';
 
 function Home() {
@@ -16,14 +14,16 @@ function Home() {
   ];
 
   return (
-    <div>
-      <Header />
-      <main style={{ paddingTop: '60px', paddingBottom: '60px', padding: '16px' }}>
-        <GoalBlock type="add" />
-        <GoalBlock type="list" day="오늘" tasks={todayTasks} />
-        <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
-      </main>
-      <FooterNav />
+    <div style={{ width: '100%' }}>  {/* ✅ 핵심! main 내부 요소 확장 */}
+      <GoalBlock type="add" />
+      <GoalBlock type="list" day="오늘" tasks={todayTasks} />
+      <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
+      <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
+      <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
+      <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
+      <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
+      <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
+      <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
     </div>
   );
 }

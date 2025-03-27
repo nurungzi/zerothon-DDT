@@ -1,16 +1,28 @@
-// src/components/Layout.jsx
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import FooterNav from './FooterNav';
-import { Outlet } from 'react-router-dom';
 
 function Layout() {
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <Header />
-      <main style={{ paddingTop: '60px', paddingBottom: '60px', padding: '16px' }}>
-        <Outlet /> {/* 여기에 각 페이지(Home, Friends 등) 렌더링됨 */}
+
+      <main id='testmain'
+        style={{
+          width: '100%',              // ✅ 전체 너비
+          margin: 0,                  // ✅ 중앙정렬 제거
+          paddingInline: '16px',     // ✅ 좌우 여백은 그대로
+          paddingTop: '60px',
+          paddingBottom: '60px',
+          boxSizing: 'border-box'
+
+          
+        }}
+      >
+        <Outlet />
       </main>
+
       <FooterNav />
     </div>
   );

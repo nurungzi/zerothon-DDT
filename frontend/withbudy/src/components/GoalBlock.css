@@ -1,10 +1,16 @@
 .goal-block {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
     background-color: #f5fafd;
-    border-radius: 12px;
     padding: 16px;
     margin-bottom: 16px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-radius: 12px;
   }
+  
+  
+  
+  
   
   .add-goal-btn {
     width: 100%;
