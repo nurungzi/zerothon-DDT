@@ -1,0 +1,21 @@
+/* src/components/Header.css */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .left, .right {
+    font-size: 16px;
+    color: gray;
+  }
+  
+  .center {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
