@@ -10,10 +10,10 @@ function App() {
 
   return (
     <>
-    <div>
+
       <Header/>
       <FooterNav/>
-    </div>
+
 
     </>
   )
