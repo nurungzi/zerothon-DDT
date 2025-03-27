@@ -1,22 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Header from './components/Header'
-import FooterNav from './components/FooterNav'
+// src/App.jsx
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import Friends from './pages/Friends';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-
-      <Header/>
-      <FooterNav/>
-
-
-    </>
-  )
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} /> {/* "/" */}
+        <Route path="friends" element={<Friends />} /> {/* "/friends" */}
+        {/* <Route path="stats" element={<Stats />} /> 도 여기로 추가 가능 */}
+      </Route>
+    </Routes>
+  );
 }
 
-export default App
+export default App;
