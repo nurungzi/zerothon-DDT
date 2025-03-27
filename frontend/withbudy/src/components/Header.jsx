@@ -1,12 +1,12 @@
 import React from 'react';
-import './Header.css'; 
+import './Header.css';
 
 function Header() {
   return (
     <header className="header">
-      <button className="left">프로필</button>
-      <h1 className="center">WithBuddy</h1>
-      <button className="right">🔔</button>
+      <button className="header-btn">👤</button>
+      <h1 className="header-title">WithBuddy</h1>
+      <button className="header-btn">🔔</button>
     </header>
   );
 }

@@ -1,21 +1,35 @@
-/* src/components/Header.css */
-
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
     background-color: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 100;
   }
   
-  .left, .right {
-    font-size: 16px;
-    color: gray;
+  /* 좌우 버튼 공통 스타일 */
+  .header-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
   }
   
-  .center {
+  /* 가운데 타이틀 */
+  .header-title {
+    flex: 1;
+    text-align: center;
     font-size: 20px;
     font-weight: bold;
+    margin: 0 10px;
   }
   
