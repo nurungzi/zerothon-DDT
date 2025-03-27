@@ -1,4 +1,4 @@
-package config;
+package com.zerothon.zerothon_ddt.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

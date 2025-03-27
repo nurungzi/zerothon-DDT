@@ -1,4 +1,4 @@
-package domain.user.entity;
+package com.zerothon.zerothon_ddt.domain.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

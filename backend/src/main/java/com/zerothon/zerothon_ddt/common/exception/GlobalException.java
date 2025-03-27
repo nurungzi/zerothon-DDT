@@ -1,4 +1,4 @@
-package common.exception;
+package com.zerothon.zerothon_ddt.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
