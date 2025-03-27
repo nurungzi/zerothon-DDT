@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-@EntityScan(basePackages = "common.entity")
+@EntityScan(basePackages = "domain.user")
 public class ZerothonDdtApplication {
 
 	public static void main(String[] args) {
