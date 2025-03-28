@@ -1,0 +1,29 @@
+.friend-carousel {
+    display: flex;
+    overflow-x: auto;
+    padding: 12px 8px;
+    gap: 12px;
+  }
+  
+  .friend-profile {
+    flex: 0 0 auto;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .friend-profile img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .friend-profile.selected img {
+    border: 3px solid #007bff;
+  }
+  
+  .friend-name {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  
