@@ -10,6 +10,8 @@ function ProgressBar({ icon, rate, type }) {
           className="bar-fill"
           style={{ width: `${rate}%` }}
         ></div>
+        {/* <div className="bar-fill" style={{ width: '80%', backgroundColor: 'red' }}></div> */}
+
       </div>
     </div>
   );
