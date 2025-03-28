@@ -1,0 +1,67 @@
+.buddy-highlight {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 16px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+    gap: 16px;
+    width: 100%;
+  }
+  
+  .buddy-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .buddy-left .quote {
+    margin-top: 4px;
+    font-style: italic;
+    color: #666;
+  }
+  
+  .buddy-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+  }
+  
+  .buddy-right .label {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  
+  .buddy-right .bold {
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-img,
+  .profile-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  
+  .buddy-name {
+    font-size: 13px;
+    color: #444;
+  }
+  

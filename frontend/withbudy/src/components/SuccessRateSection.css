@@ -1,0 +1,38 @@
+.success-rate-section {
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc; /* 구분선 역할 */
+    text-align: center;
+  }
+  
+  .section-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .progress-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .rate-labels {
+    display: flex;
+    justify-content: space-around;
+    font-size: 13px;
+    color: #555;
+  }
+  
+  .progress-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch; /* ✅ stretch to full width */
+    width: 100%;
+    max-width: 100%;
+    padding: 0 24px; /* 여백만 남기고 꽉 채우기 */
+    box-sizing: border-box;
+  }
+  

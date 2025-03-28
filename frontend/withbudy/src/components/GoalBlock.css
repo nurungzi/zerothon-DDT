@@ -1,0 +1,53 @@
+.goal-block {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f5fafd;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+  }
+  
+  
+  
+  
+  
+  .add-goal-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .goal-block-title {
+    font-weight: bold;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  
+  .goal-task-list {
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  
+  .goal-task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #eee;
+  }
+  
+  .no-task {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+  }
+  

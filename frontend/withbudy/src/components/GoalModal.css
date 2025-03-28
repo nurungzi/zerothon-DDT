@@ -1,0 +1,136 @@
+/* GoalModal.css */
+
+.goal-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .goal-modal {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 16px;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .goal-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .goal-modal-header h2 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .close-btn {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .goal-modal-dates {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .goal-modal-dates button {
+    padding: 6px 12px;
+    background: #f0f0f0;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .goal-modal-inputs input,
+  .goal-modal-inputs textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+  
+  .goal-modal-inputs textarea {
+    resize: none;
+    height: 80px;
+  }
+  
+  .goal-modal-friends {
+    overflow-x: auto;
+    padding: 8px 0;
+  }
+  
+  .friend-carousel {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .friend-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+    cursor: pointer;
+  }
+  
+  .friend-icon {
+    font-size: 28px;
+    background-color: #eee;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .friend-name {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  
+  .friend-item.selected .friend-icon {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .goal-modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  
+  .goal-modal-buttons button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .goal-modal-buttons button:last-child {
+    background-color: #007bff;
+    color: white;
+  }
+  
