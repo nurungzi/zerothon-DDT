@@ -1,0 +1,36 @@
+.goal-list-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  .goal-column {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .goal-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .goal-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    color: #555;
+  }
+  
+  .goal-list li {
+    margin-bottom: 6px;
+  }
+  

@@ -1,0 +1,32 @@
+.progress-bar {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .progress-bar .icon {
+    font-size: 24px;
+    margin-right: 8px;
+  }
+  
+  .bar-container {
+    flex: 1;
+    height: 16px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .bar-fill {
+    height: 100%;
+    transition: width 0.4s ease;
+  }
+  
+  .progress-bar.success .bar-fill {
+    background-color: #007bff; /* 파란색 */
+  }
+  
+  .progress-bar.failure .bar-fill {
+    background-color: #000000; /* 검정색 */
+  }
+  

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Stats.css';
+// import './Stats.css';
 import SuccessRateSection from '../components/SuccessRateSection';
 import BuddyHighlight from '../components/BuddyHighlight';
 import GoalListSection from '../components/GoalListSection';
