@@ -5,27 +5,14 @@ import FooterNav from './FooterNav';
 
 function Layout() {
   return (
-    <div style={{ width: '100%' }}>
-      <Header />
-
-      <main id='testmain'
-        style={{
-          display: 'block',
-          width: '100%',              // ✅ 전체 너비
-          minWidth: '100%',
-          margin: 0,                  // ✅ 중앙정렬 제거
-          paddingInline: '16px',     // ✅ 좌우 여백은 그대로
-          paddingTop: '60px',
-          paddingBottom: '60px',
-          boxSizing: 'border-box'
-
-          
-        }}
-      >
+    <div className="mobile-container">  {/* 모바일 해상도 기준 프레임 */}
+      <Header />                         {/* 고정 상단 */}
+      
+      <main className="main-content">   {/* 스크롤 가능한 메인 */}
         <Outlet />
       </main>
 
-      <FooterNav />
+      <FooterNav />                     {/* 고정 하단 */}
     </div>
   );
 }
