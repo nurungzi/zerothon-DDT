@@ -1,29 +1,60 @@
 .friend-carousel {
     display: flex;
     overflow-x: auto;
-    padding: 12px 8px;
+    padding: 12px 12px;
     gap: 12px;
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .friend-carousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
   }
   
   .friend-profile {
     flex: 0 0 auto;
     text-align: center;
     cursor: pointer;
+    width: 64px;
   }
   
-  .friend-profile img {
-    width: 60px;
-    height: 60px;
+  .friend-avatar {
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid transparent;
+    background-color: #eee;
   }
   
-  .friend-profile.selected img {
-    border: 3px solid #007bff;
+  .friend-profile.selected .friend-avatar {
+    border-color: #007bff;
   }
   
   .friend-name {
     font-size: 12px;
-    margin-top: 4px;
+    margin-top: 6px;
+    color: #333;
+  }
+  
+  /* + 버튼 전용 스타일 */
+  .friend-profile.add-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .friend-avatar.add-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #aaa;
   }
   
