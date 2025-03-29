@@ -1,26 +1,42 @@
+// src/components/NotificationModal.jsx
 import React, { useEffect, useState } from 'react';
 import './NotificationModal.css';
-import { fetchNotifications } from '../api'; // 백엔드에서 알림 목록 가져오는 함수
+import { fetchNotifications, acceptNotification } from '../api';
 
 function NotificationModal({ isOpen, onClose }) {
   const [notifications, setNotifications] = useState([]);
+  const currentUserId = 1; // ✅ 로그인 없이 임시 사용자 ID
+
+  // 알림 목록 불러오기
+  const loadNotifications = async () => {
+    try {
+      const data = await fetchNotifications(currentUserId);
+      if (Array.isArray(data)) {
+        setNotifications(data);
+      } else {
+        setNotifications([]);
+      }
+    } catch (error) {
+      console.error('❌ 알림 조회 실패:', error);
+      setNotifications([]);
+    }
+  };
 
   useEffect(() => {
     if (isOpen) {
-      fetchNotifications()
-        .then((data) => {
-          if (Array.isArray(data)) {
-            setNotifications(data);
-          } else {
-            setNotifications([]); // fallback
-          }
-        })
-        .catch((error) => {
-          console.error('알림 데이터를 불러오는 데 실패했습니다:', error);
-          setNotifications([]); // fallback on error
-        });
+      loadNotifications();
     }
   }, [isOpen]);
+
+  const handleAccept = async (notificationId) => {
+    try {
+      await acceptNotification(notificationId);
+      alert('✅ 수락 완료!');
+      loadNotifications(); // 다시 불러오기
+    } catch (error) {
+      alert('❌ 수락 실패!');
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -36,16 +52,16 @@ function NotificationModal({ isOpen, onClose }) {
           {notifications.length === 0 ? (
             <div className="no-notification">알림이 없습니다</div>
           ) : (
-            notifications.map((item, index) => (
-              <div key={index} className="notification-card">
+            notifications.map((item) => (
+              <div key={item.id} className="notification-card">
                 <div className="profile-placeholder">👤</div>
                 <div className="notification-content">
-                  <strong>{item.name}</strong>
-                  <div>{item.message}</div>
+                  <strong>{item.requester?.name || '익명'}</strong>
+                  <div>{item.content}</div>
                 </div>
-                {item.type === 'actionable' && (
+                {item.state === 'WAITING' && (
                   <div className="notification-actions">
-                    <button className="accept">✅</button>
+                    <button className="accept" onClick={() => handleAccept(item.id)}>✅</button>
                     <button className="reject">❌</button>
                   </div>
                 )}

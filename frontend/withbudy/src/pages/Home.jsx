@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import GoalBlock from '../components/GoalBlock';
 import GoalModal from '../components/GoalModal';
-import { createTodo, fetchTodoByDate } from '../api'; // ✅ fetchTodoByDate 정상 export 확인
+import { createTodo, fetchTodoByDate } from '../api';
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,7 +16,7 @@ function Home() {
     { id: 4, name: '수빈' },
   ];
 
-  const currentUserId = 1; // ✅ 로그인 없이 임시 사용자 ID
+  const currentUserId = 1; // 로그인 없이 임시 사용자 ID
 
   // ✅ 할일 목록 불러오기
   useEffect(() => {
@@ -27,12 +27,12 @@ function Home() {
           setTodoByDate(data);
         } else {
           console.warn('서버로부터 받은 데이터가 배열이 아닙니다:', data);
-          setTodoByDate([]); // fallback 처리
+          setTodoByDate([]);
         }
       } catch (err) {
         console.error('할일 조회 실패:', err);
         alert('할일 목록을 불러오지 못했습니다.');
-        setTodoByDate([]); // fallback 처리
+        setTodoByDate([]);
       }
     };
 
@@ -54,10 +54,10 @@ function Home() {
       const savedGoal = await createTodo(requestBody);
       console.log('✅ 등록 성공:', savedGoal);
 
-      // 승인 대기 리스트 추가
-      setApprovalTasks(prev => [...prev, { text: savedGoal.title }]);
+      // 승인 대기 리스트에 추가 (id 포함)
+      setApprovalTasks(prev => [...prev, { id: savedGoal.id, text: savedGoal.title }]);
 
-      // 다시 불러오기
+      // 할일 목록 새로고침
       const updated = await fetchTodoByDate(currentUserId);
       if (Array.isArray(updated)) {
         setTodoByDate(updated);
@@ -71,24 +71,25 @@ function Home() {
 
   return (
     <div style={{ width: '100%' }}>
+      {/* 목표 추가 버튼 */}
       <GoalBlock type="add" onClick={() => setIsModalOpen(true)} />
 
-      {/* 승인 대기 목표 표시 */}
-      <GoalBlock type="approval" day="목표 승인 대기" tasks={approvalTasks} />
+      {/* 승인 대기 목표 표시 (체크박스 없음) */}
+      <GoalBlock type="pending" tasks={approvalTasks} />
 
       {/* 날짜별 할일 표시 */}
-      {Array.isArray(todoByDate) &&
-        todoByDate.map(entry => (
-          <GoalBlock
-            key={entry.date}
-            type="list"
-            day={entry.date}
-            tasks={entry.todoList.map(todo => ({
-              text: todo.title,
-              done: todo.state === 'DONE',
-            }))}
-          />
-        ))}
+      {todoByDate.map(entry => (
+        <GoalBlock
+          key={entry.date}
+          type="list"
+          day={entry.date}
+          tasks={entry.todoList.map(todo => ({
+            id: todo.id,
+            text: todo.title,
+            done: todo.state === 'DONE',
+          }))}
+        />
+      ))}
 
       {/* 목표 추가 모달 */}
       <GoalModal

@@ -12,20 +12,24 @@ function Header() {
   // 🔔 알림 모달 열릴 때만 fetch
   useEffect(() => {
     if (showNotifications) {
-      fetchNotifications()
+      const userId = 1; // 하드코딩된 사용자 ID
+      fetchNotifications(userId)
         .then((data) => {
           if (Array.isArray(data)) {
             setNotifications(data);
           } else {
-            setNotifications([]); // fallback
+            setNotifications([]);
           }
         })
         .catch((err) => {
           console.error('알림 불러오기 실패:', err);
-          setNotifications([]); // fallback on error
+          setNotifications([]);
         });
     }
   }, [showNotifications]);
+  
+
+
 
   return (
     <>
