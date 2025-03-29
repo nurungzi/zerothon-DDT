@@ -38,4 +38,16 @@ public class TodoService {
 
         return new TodoDTO.TodoResponse(realTodo);
     }
+
+    @Transactional
+    public TodoDTO.TodoResponse doneTodo(Long id){
+        Todo todoOrigin = todoRepository.findById(id).orElseThrow(()->new GlobalException(Message.SOURCE_NOT_FOUND.getMessage()));
+        todoOrigin.setState(TodoState.WAITING);
+
+        Todo todo = todoRepository.save(todoOrigin);
+
+        notificationService.createNotification(NotificationType.TODODONE, todo.getUser().getId(), todo.getBuddy().getId(), todo.getId());
+
+        return new TodoDTO.TodoResponse(todo);
+    }
 }
