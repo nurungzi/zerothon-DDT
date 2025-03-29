@@ -1,24 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
 import NotificationModal from './NotificationModal';
 import ProfileModal from './ProfileModal';
+import { fetchNotifications } from '../api'; // ✅ 알림 받아오는 API 함수
 
 function Header() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [notifications, setNotifications] = useState([]);
 
-  const dummyNotifications = [
-    { name: '지민', message: '친구 신청', type: 'actionable' },
-    { name: '수연', message: '목표(운동 30분)를 성공 했습니다.', type: 'info' },
-    { name: '현수', message: '목표(책 읽기)를 실패 했습니다.', type: 'info' },
-    { name: '민지', message: '(운동 30분) 파트너 지정', type: 'actionable' },
-    { name: '예지', message: '(책 읽기) 달성', type: 'actionable' },
-    { name: '정민', message: '목표(청소) 성공!', type: 'info' },
-    { name: '찬우', message: '목표(디버깅) 실패...', type: 'info' },
-    { name: '보라', message: '친구 신청', type: 'actionable' },
-    { name: '민호', message: '목표(30분 걷기) 성공!', type: 'info' },
-    { name: '도윤', message: '목표(커밋하기) 실패...', type: 'info' },
-  ];
+  // 🔔 알림 모달 열릴 때만 fetch
+  useEffect(() => {
+    if (showNotifications) {
+      fetchNotifications()
+        .then((data) => {
+          if (Array.isArray(data)) {
+            setNotifications(data);
+          } else {
+            setNotifications([]); // fallback
+          }
+        })
+        .catch((err) => {
+          console.error('알림 불러오기 실패:', err);
+          setNotifications([]); // fallback on error
+        });
+    }
+  }, [showNotifications]);
 
   return (
     <>
@@ -28,14 +35,14 @@ function Header() {
         <button className="header-btn" onClick={() => setShowNotifications(true)}>🔔</button>
       </header>
 
-      {/* 알림 모달 */}
+      {/* ✅ 알림 모달 */}
       <NotificationModal
         isOpen={showNotifications}
         onClose={() => setShowNotifications(false)}
-        notifications={dummyNotifications}
+        notifications={notifications}
       />
 
-      {/* 프로필 모달 */}
+      {/* ✅ 프로필 모달 */}
       {showProfile && (
         <ProfileModal 
           isOpen={showProfile}
