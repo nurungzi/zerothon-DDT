@@ -1,6 +1,7 @@
 package com.zerothon.zerothon_ddt.domain.todo.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.zerothon.zerothon_ddt.domain.todo.dto.TodoDTO;
 import com.zerothon.zerothon_ddt.domain.todo.entity.Todo;
 import com.zerothon.zerothon_ddt.domain.todo.entity.enums.TodoState;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,14 @@ public class TodoQueryRepository {
                 .where(todo.user.id.eq(id))
                 .orderBy(todo.endDate.asc())
                 .distinct()
+                .fetch();
+    }
+
+    public List<Todo> getWaitingTodoList(Long id){
+        return jpaQueryFactory.selectFrom(todo)
+                .where(todo.user.id.eq(id)
+                        .and(todo.state.eq(TodoState.WAITING)))
+                .orderBy(todo.endDate.asc())
                 .fetch();
     }
 }

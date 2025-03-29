@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -73,5 +72,15 @@ public class TodoService {
             result.add(todoResponse);
         }
         return result;
+    }
+
+    @Transactional
+    public List<TodoDTO.TodoResponse> getWaitingTodo(Long id){
+        List<Todo> result = todoQueryRepository.getWaitingTodoList(id);
+        List<TodoDTO.TodoResponse> todoResponses = new ArrayList<>();
+        for(Todo t:result){
+            todoResponses.add(new TodoDTO.TodoResponse(t));
+        }
+        return todoResponses;
     }
 }

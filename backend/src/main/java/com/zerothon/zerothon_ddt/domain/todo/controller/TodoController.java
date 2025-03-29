@@ -28,4 +28,8 @@ public class TodoController {
         return todoService.getTodos(id);
     }
 
+    @GetMapping("/waiting")
+    public List<TodoDTO.TodoResponse> getWaitingTodo(@RequestParam Long id){
+        return todoService.getWaitingTodo(id);
+    }
 }
