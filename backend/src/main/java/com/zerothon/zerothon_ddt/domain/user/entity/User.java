@@ -1,10 +1,13 @@
 package com.zerothon.zerothon_ddt.domain.user.entity;
 
+import com.zerothon.zerothon_ddt.domain.todo.entity.Todo;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +30,8 @@ public class User {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "user")
+    @Builder.Default
+    private List<Todo> todoList = new ArrayList<>();
 }
