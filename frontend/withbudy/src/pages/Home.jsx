@@ -15,6 +15,12 @@ function Home() {
     { text: '이메일 정리', done: false },
   ];
 
+  const pendingGoals = [
+    { text: '지민과 운동하기' },
+    { text: '책 같이 읽기' },
+    { text: '아침 6시 기상!' },
+  ];
+
   const dummyFriends = [
     { id: 1, name: '예지' },
     { id: 2, name: '지후' },
@@ -29,7 +35,13 @@ function Home() {
 
   return (
     <div style={{ width: '100%' }}>
+      {/* 목표 추가 버튼 */}
       <GoalBlock type="add" onClick={() => setIsModalOpen(true)} />
+
+      {/* ✅ 목표 승인 대기 블럭 추가 */}
+      <GoalBlock type="pending" tasks={pendingGoals} />
+
+      {/* 기존 할일 블럭 */}
       <GoalBlock type="list" day="오늘" tasks={todayTasks} />
       <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
       <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
@@ -39,7 +51,7 @@ function Home() {
       <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
       <GoalBlock type="list" day="D-1" tasks={yesterdayTasks} />
 
-      {/* ✅ 목표 추가 모달 */}
+      {/* 목표 추가 모달 */}
       <GoalModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
