@@ -32,4 +32,9 @@ public class TodoController {
     public List<TodoDTO.TodoResponse> getWaitingTodo(@RequestParam Long id){
         return todoService.getWaitingTodo(id);
     }
+
+    @GetMapping("/friend")
+    public List<TodoDTO.TodoResponse> getFriendTodo(@RequestParam Long id, @RequestParam Long friendId){
+        return todoService.getFriendTodo(id, friendId);
+    }
 }
