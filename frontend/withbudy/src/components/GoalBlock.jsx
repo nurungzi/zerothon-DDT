@@ -2,10 +2,10 @@
 import React from 'react';
 import './GoalBlock.css';
 
-function GoalBlock({ type = 'list', day = '오늘', tasks = [] }) {
+function GoalBlock({ type, day, tasks, onClick }) {
   if (type === 'add') {
     return (
-      <div className="goal-block">
+      <div className="goal-block add-goal" onClick={onClick}>
         <button className="add-goal-btn">목표 추가</button>
       </div>
     );
