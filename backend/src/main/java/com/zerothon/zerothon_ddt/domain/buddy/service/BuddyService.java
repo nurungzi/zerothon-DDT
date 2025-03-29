@@ -16,6 +16,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BuddyService {
@@ -41,5 +44,16 @@ public class BuddyService {
         Notification notification = notificationService.createNotification(NotificationType.FRIENDREQUEST, request.getRequesterId(), request.getResponserId(), requestBuddy.getId());
 
         return new BuddyDTO.BuddyResponse(requestBuddy);
+    }
+
+    @Transactional
+    public List<BuddyDTO.BuddyResponse> getListBuddy(Long id){
+        List<Buddy> result = buddyQueryRepository.findBuddies(id);
+        List<BuddyDTO.BuddyResponse> list = new ArrayList<>();
+        for (Buddy e : result) {
+            list.add(new BuddyDTO.BuddyResponse(e));
+        }
+
+        return list;
     }
 }

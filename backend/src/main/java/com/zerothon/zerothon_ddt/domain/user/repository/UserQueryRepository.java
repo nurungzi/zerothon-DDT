@@ -1,7 +1,6 @@
 package com.zerothon.zerothon_ddt.domain.user.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.zerothon.zerothon_ddt.domain.user.entity.QUser;
 import com.zerothon.zerothon_ddt.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

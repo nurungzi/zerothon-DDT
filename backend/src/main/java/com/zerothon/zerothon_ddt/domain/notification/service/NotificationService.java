@@ -80,7 +80,7 @@ public class NotificationService {
                 break;
         }
         User requester = userRepository.findById(requesterId).orElseThrow(()->new GlobalException(Message.USER_NOT_FOUND.getMessage()));
-        User responser = userRepository.findById(requesterId).orElseThrow(()->new GlobalException(Message.USER_NOT_FOUND.getMessage()));
+        User responser = userRepository.findById(responserId).orElseThrow(()->new GlobalException(Message.USER_NOT_FOUND.getMessage()));
         notification.setRequester(requester);
         notification.setResponser(responser);
 
