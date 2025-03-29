@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import './GoalModal.css';
 
 function GoalModal({ isOpen, onClose, onSubmit, friends }) {
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [selectedFriend, setSelectedFriend] = useState(null);
@@ -12,7 +14,10 @@ function GoalModal({ isOpen, onClose, onSubmit, friends }) {
 
   const handleRegister = () => {
     if (!startDate || !endDate || !title || !selectedFriend) return;
-    onSubmit({ startDate, endDate, title, content, partner: selectedFriend });
+
+    // onSubmit({ startDate, endDate, title, content, partner: selectedFriend });
+    onSubmit({ startDate, endDate, title, content, selectedBuddyId: selectedFriend });
+
     onClose();
   };
 
@@ -25,9 +30,21 @@ function GoalModal({ isOpen, onClose, onSubmit, friends }) {
         </div>
 
         <div className="goal-modal-dates">
-          <button onClick={() => alert('날짜 선택')}>{startDate || '시작 날짜'}</button>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            placeholderText="시작 날짜"
+            dateFormat="yyyy-MM-dd"
+            className="date-picker"
+          />
           <span>➝</span>
-          <button onClick={() => alert('날짜 선택')}>{endDate || '종료 날짜'}</button>
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            placeholderText="종료 날짜"
+            dateFormat="yyyy-MM-dd"
+            className="date-picker"
+          />
         </div>
 
         <div className="goal-modal-inputs">
