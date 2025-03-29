@@ -5,6 +5,8 @@ import com.zerothon.zerothon_ddt.domain.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/todos")
 @RequiredArgsConstructor
@@ -19,6 +21,11 @@ public class TodoController {
     @PutMapping("/done")
     public TodoDTO.TodoResponse doneTodo(@RequestParam Long id){
         return todoService.doneTodo(id);
+    }
+
+    @GetMapping("/date")
+    public List<TodoDTO.TodoListResponseByDate> getTodos(@RequestParam Long id){
+        return todoService.getTodos(id);
     }
 
 }

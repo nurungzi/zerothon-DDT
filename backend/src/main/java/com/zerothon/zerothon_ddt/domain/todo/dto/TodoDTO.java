@@ -3,13 +3,11 @@ package com.zerothon.zerothon_ddt.domain.todo.dto;
 import com.zerothon.zerothon_ddt.domain.todo.entity.Todo;
 import com.zerothon.zerothon_ddt.domain.todo.entity.enums.TodoState;
 import com.zerothon.zerothon_ddt.domain.user.dto.UserDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 public class TodoDTO {
@@ -76,4 +74,20 @@ public class TodoDTO {
             this.buddy = new UserDTO.UserResponse(todo.getBuddy());
         }
     }
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    public static class TodoListResponseByDate{
+        private LocalDate date;
+
+        private List<TodoResponse> todoList;
+
+        public TodoListResponseByDate(LocalDate date,  List<TodoResponse> todoList){
+            this.date = date;
+            this.todoList = todoList;
+        }
+    }
+
 }

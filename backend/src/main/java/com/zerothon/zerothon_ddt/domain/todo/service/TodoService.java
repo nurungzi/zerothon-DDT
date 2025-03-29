@@ -14,6 +14,11 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class TodoService {
@@ -49,5 +54,24 @@ public class TodoService {
         notificationService.createNotification(NotificationType.TODODONE, todo.getUser().getId(), todo.getBuddy().getId(), todo.getId());
 
         return new TodoDTO.TodoResponse(todo);
+    }
+
+    @Transactional
+    public List<TodoDTO.TodoListResponseByDate> getTodos(Long id){
+        List<Todo> todoList = todoQueryRepository.findTodoList(id);
+        List<LocalDate> todoEndDateList= todoQueryRepository.getTodoEndDateById(id);
+        List<TodoDTO.TodoListResponseByDate> result = new ArrayList<>();
+        for (LocalDate localDate : todoEndDateList) {
+            TodoDTO.TodoListResponseByDate todoResponse = new TodoDTO.TodoListResponseByDate();
+            todoResponse.setDate(localDate);
+            List<Todo> list = todoList.stream().filter(todo -> todo.getEndDate().equals(localDate)).toList();
+            List<TodoDTO.TodoResponse> responseList = new ArrayList<>();
+            for (Todo t : list) {
+                responseList.add(new TodoDTO.TodoResponse(t));
+            }
+            todoResponse.setTodoList(responseList);
+            result.add(todoResponse);
+        }
+        return result;
     }
 }
