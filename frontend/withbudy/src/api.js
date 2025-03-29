@@ -26,3 +26,9 @@ export async function createTodo(data) {
     throw error;
   }
 }
+
+// 알림 데이터 조회 (현재 사용자 기준)
+export async function fetchNotifications(userId) {
+  const response = await axios.get(`/api/notifications?userId=${userId}`);
+  return response.data;
+}
