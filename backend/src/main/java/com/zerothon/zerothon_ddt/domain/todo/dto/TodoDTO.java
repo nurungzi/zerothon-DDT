@@ -29,6 +29,8 @@ public class TodoDTO {
 
         private Long userId;
 
+        private Long buddyId;
+
         public Todo toEntity(){
             return Todo.builder()
                     .title(title)
@@ -60,6 +62,8 @@ public class TodoDTO {
 
         private UserDTO.UserResponse user;
 
+        private UserDTO.UserResponse buddy;
+
         public TodoResponse(Todo todo){
             this.id = todo.getId();
             this.title = todo.getTitle();
@@ -69,6 +73,7 @@ public class TodoDTO {
             this.createdAt = todo.getCreatedAt();
             this.state = todo.getState();
             this.user = new UserDTO.UserResponse(todo.getUser());
+            this.buddy = new UserDTO.UserResponse(todo.getBuddy());
         }
     }
 }

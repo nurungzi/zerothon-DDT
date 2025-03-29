@@ -2,6 +2,8 @@ package com.zerothon.zerothon_ddt.domain.todo.service;
 
 import com.zerothon.zerothon_ddt.common.error.Message;
 import com.zerothon.zerothon_ddt.common.exception.GlobalException;
+import com.zerothon.zerothon_ddt.domain.notification.entity.enums.NotificationType;
+import com.zerothon.zerothon_ddt.domain.notification.service.NotificationService;
 import com.zerothon.zerothon_ddt.domain.todo.dto.TodoDTO;
 import com.zerothon.zerothon_ddt.domain.todo.entity.Todo;
 import com.zerothon.zerothon_ddt.domain.todo.entity.enums.TodoState;
@@ -20,14 +22,19 @@ public class TodoService {
 
     private final UserRepository userRepository;
 
+    private final NotificationService notificationService;
+
     @Transactional
     public TodoDTO.TodoResponse createTodo(TodoDTO.TodoRequest request){
         Todo todo = request.toEntity();
 
         todo.setUser(userRepository.findById(request.getUserId()).orElseThrow(() -> new GlobalException(Message.USER_NOT_FOUND.getMessage())));
         todo.setState(TodoState.CREATE);
+        todo.setBuddy(userRepository.findById(request.getBuddyId()).orElseThrow(()-> new GlobalException(Message.USER_NOT_FOUND.getMessage())));
 
         Todo realTodo = todoRepository.save(todo);
+
+        notificationService.createNotification(NotificationType.TODOBUDDY,request.getUserId(), request.getBuddyId(), realTodo.getId());
 
         return new TodoDTO.TodoResponse(realTodo);
     }

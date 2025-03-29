@@ -7,6 +7,9 @@ import com.zerothon.zerothon_ddt.domain.buddy.entity.Buddy;
 import com.zerothon.zerothon_ddt.domain.buddy.entity.enums.BuddyState;
 import com.zerothon.zerothon_ddt.domain.buddy.repository.BuddyQueryRepository;
 import com.zerothon.zerothon_ddt.domain.buddy.repository.BuddyRepository;
+import com.zerothon.zerothon_ddt.domain.notification.entity.Notification;
+import com.zerothon.zerothon_ddt.domain.notification.entity.enums.NotificationType;
+import com.zerothon.zerothon_ddt.domain.notification.service.NotificationService;
 import com.zerothon.zerothon_ddt.domain.user.entity.User;
 import com.zerothon.zerothon_ddt.domain.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -21,6 +24,8 @@ public class BuddyService {
 
     private final UserRepository userRepository;
 
+    private final NotificationService notificationService;
+
     @Transactional
     public BuddyDTO.BuddyResponse requestBuddy(BuddyDTO.BuddyRequest request){
         User requester = userRepository.findById(request.getRequesterId()).orElseThrow(()-> new GlobalException(Message.USER_NOT_FOUND.getMessage()));
@@ -32,6 +37,8 @@ public class BuddyService {
         buddy.setState(BuddyState.WAITING);
 
         Buddy requestBuddy = buddyRepository.save(buddy);
+
+        Notification notification = notificationService.createNotification(NotificationType.FRIENDREQUEST, request.getRequesterId(), request.getResponserId(), requestBuddy.getId());
 
         return new BuddyDTO.BuddyResponse(requestBuddy);
     }

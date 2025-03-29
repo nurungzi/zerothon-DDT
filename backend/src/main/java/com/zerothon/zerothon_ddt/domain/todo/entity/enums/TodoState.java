@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum TodoState {
     CREATE("생성"),
     DOING("진행중"),
+    REFUSE("거절됨"),
     WAITING("대기중"),
     DONE("완료"),
     FAIL("실패");

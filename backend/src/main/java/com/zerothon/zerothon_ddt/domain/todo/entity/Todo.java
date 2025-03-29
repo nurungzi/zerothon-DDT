@@ -39,4 +39,8 @@ public class Todo {
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name="buddyId")
+    private User buddy;
 }
