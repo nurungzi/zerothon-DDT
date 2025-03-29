@@ -1,30 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FriendCarousel from '../components/FriendCarousel';
 import FriendTodoList from '../components/FriendTodoList';
 import FriendRequestModal from '../components/FriendRequestModal';
-import { requestFriend } from '../api'; // ✅ API 요청 함수
-
-// 샘플 친구 데이터
-const dummyFriends = [
-  { id: 'add', name: '', avatar: null }, // 가장 왼쪽 + 버튼
-  { id: 1, name: '지민', avatar: null, todos: [{ day: '오늘', tasks: [{ text: '과제하기', done: false }] }] },
-  { id: 2, name: '수연', avatar: null, todos: [{ day: 'D-1', tasks: [{ text: '알바', done: true }] }] },
-  { id: 3, name: '현수', avatar: null, todos: [{ day: '오늘', tasks: [{ text: '운동', done: false }] }] },
-  { id: 4, name: '민지', avatar: null, todos: [{ day: '오늘', tasks: [{ text: '영화보기', done: false }] }] },
-  { id: 5, name: '도윤', avatar: null, todos: [{ day: 'D-2', tasks: [{ text: '요리연습', done: false }] }] },
-  { id: 6, name: '서현', avatar: null, todos: [{ day: 'D-3', tasks: [{ text: '카페가기', done: true }] }] },
-  { id: 7, name: '민호', avatar: null, todos: [{ day: 'D-3', tasks: [{ text: '카페가기', done: true }] }] },
-  { id: 8, name: '재민', avatar: null, todos: [{ day: '오늘', tasks: [{ text: '독서', done: false }] }] }
-];
+import { requestFriend, fetchFriendList } from '../api';
 
 function Friends() {
-  const [selectedId, setSelectedId] = useState(null);
+  const [friendList, setFriendList] = useState([]);        // 친구 목록
+  const [selectedId, setSelectedId] = useState(null);      // 선택된 친구 ID
   const [showRequestModal, setShowRequestModal] = useState(false);
 
-  const selectedFriend = dummyFriends.find(f => f.id === selectedId);
-  const currentUserId = 4; // ✅ 현재 로그인 유저 ID (하드코딩)
+  const currentUserId = 1; // ✅ 로그인 없이 하드코딩한 사용자 ID
 
-  // 친구 선택 또는 + 버튼 클릭
+  // ✅ 친구 목록 불러오기
+  useEffect(() => {
+    const loadFriends = async () => {
+      try {
+        const data = await fetchFriendList(currentUserId);
+        if (Array.isArray(data)) {
+          const formatted = data
+            .filter(item => item.state === 'FRIEND')
+            .map(item => {
+              const buddy =
+                item.requester.id === currentUserId
+                  ? item.responser
+                  : item.requester;
+
+              return {
+                id: buddy.id,
+                name: buddy.name,
+                avatar: null,  // 아직 아바타 미구현 상태
+                todos: [],     // 할일은 추후 확장 가능
+              };
+            });
+
+          setFriendList([{ id: 'add', name: '', avatar: null }, ...formatted]);
+        }
+      } catch (err) {
+        console.error('❌ 친구 목록 로딩 실패:', err);
+        alert('친구 목록을 불러오지 못했어요.');
+      }
+    };
+
+    loadFriends();
+  }, []);
+
+  // ✅ 친구 선택 또는 + 버튼 클릭
   const handleSelect = (id) => {
     if (id === 'add') {
       setShowRequestModal(true);
@@ -33,7 +53,7 @@ function Friends() {
     }
   };
 
-  // 친구 요청 API 호출
+  // ✅ 친구 요청 API 호출
   const handleFriendRequest = async (friendId) => {
     try {
       const responserId = parseInt(friendId);
@@ -46,18 +66,20 @@ function Friends() {
     }
   };
 
+  const selectedFriend = friendList.find(f => f.id === selectedId);
+
   return (
     <>
       <div style={{ width: '100%' }}>
         <FriendCarousel
-          friends={dummyFriends}
+          friends={friendList}
           selectedId={selectedId}
           onSelect={handleSelect}
         />
         <FriendTodoList friend={selectedFriend} />
       </div>
 
-      {/* 친구 신청 모달 */}
+      {/* 친구 추가 모달 */}
       {showRequestModal && (
         <FriendRequestModal
           isOpen={showRequestModal}

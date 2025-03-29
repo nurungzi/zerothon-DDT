@@ -1,25 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './GoalModal.css';
+import { fetchFriendList } from '../api'; // ✅ 친구 목록 API 추가
 
-function GoalModal({ isOpen, onClose, onSubmit, friends }) {
+function GoalModal({ isOpen, onClose, onSubmit }) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [selectedFriend, setSelectedFriend] = useState(null);
+  const [friends, setFriends] = useState([]);
 
-  if (!isOpen) return null;
+  const currentUserId = 1; // ✅ 하드코딩된 유저 ID
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const loadFriends = async () => {
+      try {
+        const data = await fetchFriendList(currentUserId);
+        if (Array.isArray(data)) {
+          const formatted = data
+            .filter(item => item.state === 'FRIEND')
+            .map(item => {
+              const buddy =
+                item.requester.id === currentUserId
+                  ? item.responser
+                  : item.requester;
+              return { id: buddy.id, name: buddy.name };
+            });
+
+          setFriends(formatted);
+        }
+      } catch (error) {
+        console.error('❌ 친구 목록 불러오기 실패:', error);
+        setFriends([]);
+      }
+    };
+
+    loadFriends();
+  }, [isOpen]);
 
   const handleRegister = () => {
     if (!startDate || !endDate || !title || !selectedFriend) return;
 
-    // onSubmit({ startDate, endDate, title, content, partner: selectedFriend });
-    onSubmit({ startDate, endDate, title, content, selectedBuddyId: selectedFriend });
+    onSubmit({
+      startDate,
+      endDate,
+      title,
+      content,
+      selectedBuddyId: selectedFriend
+    });
 
     onClose();
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className="goal-modal-overlay" onClick={onClose}>
