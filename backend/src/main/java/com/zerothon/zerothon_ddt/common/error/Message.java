@@ -10,7 +10,8 @@ public enum Message {
     WRONG_PASSWORD("패스워드를 확인해주세요"),
     WRONG_USERNAME("ID를 확인해주세요."),
     CANNOT_LOGIN("로그인할 수 없음."),
-    SOURCE_NOT_FOUND("원본 데이터를 찾을 수 없습니다.");
+    SOURCE_NOT_FOUND("원본 데이터를 찾을 수 없습니다."),
+    NO_END_TODO("종료된 목표가 없습니다.");
 
     String message;
 }
