@@ -83,4 +83,15 @@ public class TodoService {
         }
         return todoResponses;
     }
+
+    public List<TodoDTO.TodoResponse> getFriendTodo(Long id, Long friendId) {
+        List<Todo> result = todoQueryRepository.findFriendTodo(id, friendId);
+
+        List<TodoDTO.TodoResponse> todoResponses = new ArrayList<>();
+
+        for(Todo t:result){
+            todoResponses.add(new TodoDTO.TodoResponse(t));
+        }
+        return todoResponses;
+    }
 }

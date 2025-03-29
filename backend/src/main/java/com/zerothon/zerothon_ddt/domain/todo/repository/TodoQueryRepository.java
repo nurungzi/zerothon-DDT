@@ -78,4 +78,10 @@ public class TodoQueryRepository {
         );
     }
 
+    public List<Todo> findFriendTodo(Long id, Long friendId){
+        return jpaQueryFactory.selectFrom(todo)
+                .where(todo.user.id.eq(friendId)
+                        .and(todo.buddy.id.eq(id)))
+                .fetch();
+    }
 }
