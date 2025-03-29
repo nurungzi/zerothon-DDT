@@ -16,6 +16,17 @@ export async function requestFriend(requesterId, responserId) {
   }
 }
 
+// ✅ 친구 목록 조회
+export async function fetchFriendList(userId) {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/api/buddys/all?id=${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error('❌ 친구 목록 조회 중 오류:', error);
+    throw error;
+  }
+}
+
 // ✅ 목표 등록
 export async function createTodo(data) {
   try {
@@ -70,3 +81,15 @@ export async function acceptNotification(notificationId) {
     throw error;
   }
 }
+
+// ✅ 통계 조회
+export async function fetchStats(userId) {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/stats?id=${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error('❌ 통계 조회 실패:', error);
+      throw error;
+    }
+  }
+  
