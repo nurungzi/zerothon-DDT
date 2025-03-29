@@ -1,14 +1,28 @@
-// src/api.js
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080'; // 백엔드 주소 (수정 가능)
+const API_BASE_URL = 'http://localhost:8080'; // 백엔드 주소 (변경 가능)
 
-export async function createTodo(todoData) {
+// ✅ 친구 추가 요청
+export async function requestFriend(requesterId, responserId) {
   try {
-    const response = await axios.post(`${API_BASE_URL}/api/todos`, todoData);
+    const response = await axios.post(`${API_BASE_URL}/api/buddys`, {
+      requesterId,
+      responserId
+    });
     return response.data;
   } catch (error) {
-    console.error('할일 등록 중 오류 발생:', error);
+    console.error('❌ 친구 요청 중 오류:', error);
+    throw error;
+  }
+}
+
+// ✅ 목표 등록 예시
+export async function createTodo(data) {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/api/todos`, data);
+    return response.data;
+  } catch (error) {
+    console.error('❌ 목표 등록 중 오류:', error);
     throw error;
   }
 }

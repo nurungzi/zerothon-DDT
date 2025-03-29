@@ -14,7 +14,10 @@ function GoalModal({ isOpen, onClose, onSubmit, friends }) {
 
   const handleRegister = () => {
     if (!startDate || !endDate || !title || !selectedFriend) return;
-    onSubmit({ startDate, endDate, title, content, partner: selectedFriend });
+
+    // onSubmit({ startDate, endDate, title, content, partner: selectedFriend });
+    onSubmit({ startDate, endDate, title, content, selectedBuddyId: selectedFriend });
+
     onClose();
   };
 
