@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import FriendCarousel from '../components/FriendCarousel';
 import FriendTodoList from '../components/FriendTodoList';
+import FriendRequestModal from '../components/FriendRequestModal';
 
 // 샘플 친구 데이터 (8명)
 const dummyFriends = [
@@ -18,25 +19,31 @@ const dummyFriends = [
 
 function Friends() {
   const [selectedId, setSelectedId] = useState(null);
+  const [showRequestModal, setShowRequestModal] = useState(false);
   const selectedFriend = dummyFriends.find(f => f.id === selectedId);
 
   const handleSelect = (id) => {
     if (id === 'add') {
-      alert('친구 추가 기능은 곧 구현됩니다!');
+      setShowRequestModal(true);
       return;
     }
     setSelectedId(id);
   };
 
   return (
-    <div style={{ width: '100%' }}>
-      <FriendCarousel
-        friends={dummyFriends}
-        selectedId={selectedId}
-        onSelect={handleSelect}
-      />
-      <FriendTodoList friend={selectedFriend} />
-    </div>
+    <>
+      <div style={{ width: '100%' }}>
+        <FriendCarousel
+          friends={dummyFriends}
+          selectedId={selectedId}
+          onSelect={handleSelect}
+        />
+        <FriendTodoList friend={selectedFriend} />
+      </div>
+      {showRequestModal && (
+        <FriendRequestModal isOpen={showRequestModal} onClose={() => setShowRequestModal(false)} />
+      )}
+    </>
   );
 }
 
