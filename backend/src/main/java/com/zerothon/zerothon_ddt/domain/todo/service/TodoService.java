@@ -14,6 +14,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TodoService {
@@ -37,5 +41,46 @@ public class TodoService {
         notificationService.createNotification(NotificationType.TODOBUDDY,request.getUserId(), request.getBuddyId(), realTodo.getId());
 
         return new TodoDTO.TodoResponse(realTodo);
+    }
+
+    @Transactional
+    public TodoDTO.TodoResponse doneTodo(Long id){
+        Todo todoOrigin = todoRepository.findById(id).orElseThrow(()->new GlobalException(Message.SOURCE_NOT_FOUND.getMessage()));
+        todoOrigin.setState(TodoState.WAITING);
+
+        Todo todo = todoRepository.save(todoOrigin);
+
+        notificationService.createNotification(NotificationType.TODODONE, todo.getUser().getId(), todo.getBuddy().getId(), todo.getId());
+
+        return new TodoDTO.TodoResponse(todo);
+    }
+
+    @Transactional
+    public List<TodoDTO.TodoListResponseByDate> getTodos(Long id){
+        List<Todo> todoList = todoQueryRepository.findTodoList(id);
+        List<LocalDate> todoEndDateList= todoQueryRepository.getTodoEndDateById(id);
+        List<TodoDTO.TodoListResponseByDate> result = new ArrayList<>();
+        for (LocalDate localDate : todoEndDateList) {
+            TodoDTO.TodoListResponseByDate todoResponse = new TodoDTO.TodoListResponseByDate();
+            todoResponse.setDate(localDate);
+            List<Todo> list = todoList.stream().filter(todo -> todo.getEndDate().equals(localDate)).toList();
+            List<TodoDTO.TodoResponse> responseList = new ArrayList<>();
+            for (Todo t : list) {
+                responseList.add(new TodoDTO.TodoResponse(t));
+            }
+            todoResponse.setTodoList(responseList);
+            result.add(todoResponse);
+        }
+        return result;
+    }
+
+    @Transactional
+    public List<TodoDTO.TodoResponse> getWaitingTodo(Long id){
+        List<Todo> result = todoQueryRepository.getWaitingTodoList(id);
+        List<TodoDTO.TodoResponse> todoResponses = new ArrayList<>();
+        for(Todo t:result){
+            todoResponses.add(new TodoDTO.TodoResponse(t));
+        }
+        return todoResponses;
     }
 }

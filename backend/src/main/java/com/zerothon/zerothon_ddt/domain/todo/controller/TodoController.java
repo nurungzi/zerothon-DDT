@@ -3,10 +3,9 @@ package com.zerothon.zerothon_ddt.domain.todo.controller;
 import com.zerothon.zerothon_ddt.domain.todo.dto.TodoDTO;
 import com.zerothon.zerothon_ddt.domain.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/todos")
@@ -17,5 +16,20 @@ public class TodoController {
     @PostMapping()
     public TodoDTO.TodoResponse createTodo(@RequestBody TodoDTO.TodoRequest request){
         return todoService.createTodo(request);
+    }
+
+    @PutMapping("/done")
+    public TodoDTO.TodoResponse doneTodo(@RequestParam Long id){
+        return todoService.doneTodo(id);
+    }
+
+    @GetMapping("/date")
+    public List<TodoDTO.TodoListResponseByDate> getTodos(@RequestParam Long id){
+        return todoService.getTodos(id);
+    }
+
+    @GetMapping("/waiting")
+    public List<TodoDTO.TodoResponse> getWaitingTodo(@RequestParam Long id){
+        return todoService.getWaitingTodo(id);
     }
 }
