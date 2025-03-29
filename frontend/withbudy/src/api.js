@@ -103,3 +103,15 @@ export async function fetchWaitingTodos(userId) {
         throw error;
     }
 }
+
+// 친구의 할일 목록 조회
+export async function fetchFriendTodos(userId, friendId) {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/todos/friend?id=${userId}&friendId=${friendId}`); 
+      return response.data;
+    } catch (error) {
+      console.error('❌ 친구 할일 조회 실패:', error);
+      throw error;
+    }
+  }
+  

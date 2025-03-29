@@ -28,8 +28,7 @@ function Friends() {
               return {
                 id: buddy.id,
                 name: buddy.name,
-                avatar: null,  // 아직 아바타 미구현 상태
-                todos: [],     // 할일은 추후 확장 가능
+                avatar: null, // 아직 아바타 미구현
               };
             });
 
@@ -44,7 +43,7 @@ function Friends() {
     loadFriends();
   }, []);
 
-  // ✅ 친구 선택 또는 + 버튼 클릭
+  // ✅ 친구 선택 or + 버튼
   const handleSelect = (id) => {
     if (id === 'add') {
       setShowRequestModal(true);
@@ -53,7 +52,7 @@ function Friends() {
     }
   };
 
-  // ✅ 친구 요청 API 호출
+  // ✅ 친구 요청 처리
   const handleFriendRequest = async (friendId) => {
     try {
       const responserId = parseInt(friendId);
