@@ -18,7 +18,7 @@ function ProfileModal({ isOpen, onClose }) {
 
         <div className="profile-picture-wrapper">
           <img src={defaultAvatar} alt="기본 프로필" className="profile-picture" />
-          <span className="add-icon">+</span>
+          <span className="profile-picture-add-button">+</span>
         </div>
 
         <div className="profile-info">
