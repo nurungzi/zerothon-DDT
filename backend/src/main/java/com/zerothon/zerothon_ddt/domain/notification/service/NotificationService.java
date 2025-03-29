@@ -20,6 +20,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class NotificationService {
@@ -30,6 +33,17 @@ public class NotificationService {
     private final TodoRepository todoRepository;
 
     private final UserRepository userRepository;
+
+    @Transactional
+    public List<NotificationDTO.NotificationResponse> getAllWaitingNotification(Long id){
+        List<Notification> result = notificationQueryRepository.getAllWaitingNotification(id);
+        List<NotificationDTO.NotificationResponse> list = new ArrayList<>();
+        for(Notification e: result){
+            list.add(new NotificationDTO.NotificationResponse(e));
+        }
+
+        return list;
+    }
 
 
     @Transactional
